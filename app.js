@@ -1,20 +1,20 @@
 const express=require('express');
 const path=require('path');
 const bodyParser=require('body-parser');
-// const {body} =require('express-validator/check');
+ const {body} =require('express-validator/check');
 const sequelize=require('./util/database');
 const multer=require('multer');
 
-const graphqlHttp=require('express-graphql');
-const graphqlSchema=require('./graphql/schema');
-const graphqlResolver=require('./graphql/resolver'); 
+// const graphqlHttp=require('express-graphql');
+// const graphqlSchema=require('./graphql/schema');
+// const graphqlResolver=require('./graphql/resolver'); 
 
 
 
 const Post =require('./model/post');
 const User=require('./model/user');
-// const feedRoutes=require('./routes/feed');
-// const authRoutes=require('./routes/auth');
+ const feedRoutes=require('./routes/feed');
+ const authRoutes=require('./routes/auth');
 
 
 const app=express();
@@ -59,8 +59,8 @@ next();
 });
 
 
-// app.use('/feed',feedRoutes);
-// app.use('/auth',authRoutes);
+ app.use('/feed',feedRoutes);
+ app.use('/auth',authRoutes);
 
 
 
@@ -76,11 +76,11 @@ sequelize
     console.log(err);
 });
 
-app.use('/graphql',graphqlHttp.graphqlHTTP({
-    schema:graphqlSchema,
-    rootValue:graphqlResolver,
-    graphiql:true
-}));
+// app.use('/graphql',graphqlHttp.graphqlHTTP({
+//     schema:graphqlSchema,
+//     rootValue:graphqlResolver,
+//     graphiql:true
+// }));
 
 
 app.use((error,req,res,next)=>{
